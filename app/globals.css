@@ -18,26 +18,15 @@ button {
   outline-offset: 4px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html:root {
-    scroll-behavior: auto;
-  }
-
-  .work-card .card-art {
-    transition: none;
-  }
-}
 :root {
   --ink: #161513;
   --cream: #f6f2eb;
   --acid: #d8ff3e;
   --line: rgba(22, 21, 19, 0.17);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 * {
   box-sizing: border-box;
-}
-html {
-  scroll-behavior: smooth;
 }
 body {
   margin: 0;
@@ -93,6 +82,7 @@ a {
   font-size: 13px;
 }
 .nav-cta i {
+  display: inline-block;
   font-style: normal;
   margin-left: 8px;
 }
@@ -222,6 +212,7 @@ h2 em {
   letter-spacing: 0.06em;
 }
 .scroll-note span {
+  display: inline-block;
   margin-left: 12px;
   font-size: 16px;
 }
@@ -282,11 +273,9 @@ h2 em {
   position: relative;
   overflow: hidden;
   background: #ddd4cb;
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.work-card:hover .card-art,
 .work-card.selected .card-art {
-  transform: translateY(-8px);
+  box-shadow: 0 0 0 2px var(--ink), 0 0 0 5px var(--acid);
 }
 .work-card:nth-child(2) .card-art,
 .work-card:nth-child(3) .card-art {
@@ -355,6 +344,7 @@ h2 em {
   padding-bottom: 7px;
 }
 .email span {
+  display: inline-block;
   margin-left: 15px;
 }
 footer {
@@ -463,5 +453,173 @@ footer p {
   footer p {
     order: 3;
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .hero-copy > * {
+    animation: rise-in 720ms var(--ease-out) both;
+  }
+  .hero h1 {
+    animation-delay: 80ms;
+  }
+  .hero .intro {
+    animation-delay: 160ms;
+  }
+  .hero .circle-link {
+    animation-delay: 240ms;
+  }
+  .hero .circle-link:focus-visible {
+    animation: none;
+  }
+  .hero-art {
+    animation: uncover 1100ms var(--ease-out) both;
+  }
+  .hero-art img {
+    animation: settle-photo 2200ms var(--ease-out) both;
+  }
+  .stage-label,
+  .stage-index {
+    animation: rise-in 650ms var(--ease-out) 500ms both;
+  }
+  .scroll-note span {
+    animation: nudge-down 1050ms ease-in-out 700ms 3;
+  }
+  .links.open {
+    animation: rise-in 280ms var(--ease-out) both;
+  }
+
+  .nav-cta i,
+  .email span,
+  .card-art {
+    transition: transform 420ms var(--ease-out);
+  }
+  .card-art img {
+    transition: transform 650ms var(--ease-out);
+  }
+  .circle-link:hover span,
+  .circle-link:focus-visible span {
+    transform: translateY(4px);
+  }
+  .nav-cta:hover i,
+  .nav-cta:focus-visible i,
+  .email:hover span,
+  .email:focus-visible span {
+    transform: translate(4px, -4px);
+  }
+  .work-card.selected .card-art,
+  .work-card:focus-visible .card-art {
+    transform: translateY(-6px);
+  }
+  .work-card:focus-visible .card-art img {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .work-card:hover .card-art {
+    transform: translateY(-6px);
+  }
+  .work-card:hover .card-art img {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .statement-grid,
+    .section-head,
+    .work-card,
+    .manifesto h2,
+    .contact h2 {
+      animation: scroll-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+    .work-card:focus-visible {
+      animation: none;
+    }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      height: 3px;
+      pointer-events: none;
+      background: var(--acid);
+      transform-origin: left;
+      animation: reading-progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links a,
+  .nav-cta,
+  .circle-link span {
+    transition: none;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes uncover {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes settle-photo {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes nudge-down {
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0.3;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reading-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
