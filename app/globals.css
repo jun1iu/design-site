@@ -171,107 +171,38 @@ h2 em {
   background: var(--ink);
   color: var(--cream);
 }
-.orbital-stage {
+.hero-art {
   min-height: 590px;
   position: relative;
   margin-top: -3vw;
-  background: #6856d8;
   overflow: hidden;
   border-radius: 3px;
+  background: #43362e;
   isolation: isolate;
 }
-.orbital-stage:before {
+.hero-art img,
+.card-art img {
+  object-fit: cover;
+}
+.hero-art::after {
   content: "";
   position: absolute;
-  width: 110%;
-  height: 45%;
-  left: -13%;
-  bottom: -12%;
-  background: #e9ff5f;
-  border-radius: 50%;
-  filter: blur(25px);
-  opacity: 0.9;
-}
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  mix-blend-mode: screen;
-}
-.orb-main {
-  height: min(34vw, 520px);
-  width: min(34vw, 520px);
-  top: 14%;
-  left: 12%;
-  background: radial-gradient(
-    circle at 35% 28%,
-    #fff 0 2%,
-    #dcff3f 5%,
-    #49e5d9 24%,
-    #6f52df 57%,
-    #342971 72%
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(22 21 19 / 48%),
+    transparent 23% 77%,
+    rgb(22 21 19 / 48%)
   );
-  box-shadow:
-    inset -55px -55px 90px #241866,
-    0 20px 60px #302278;
-  transform: rotate(-30deg);
-}
-.orb-small {
-  width: 150px;
-  height: 150px;
-  right: 10%;
-  bottom: 9%;
-  background: radial-gradient(
-    circle at 34% 25%,
-    #ffdbac,
-    #ff6e25 33%,
-    #b62843 72%
-  );
-  box-shadow: inset -18px -20px 22px #962452;
-}
-.orbit {
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.46);
-  border-radius: 50%;
-  transform: rotate(-22deg);
-}
-.orbit-a {
-  width: 125%;
-  height: 39%;
-  left: -11%;
-  top: 33%;
-}
-.orbit-b {
-  width: 110%;
-  height: 24%;
-  left: -5%;
-  top: 42%;
-  border-color: #d8ff3e;
-}
-.star {
-  position: absolute;
-  z-index: 3;
-  font-size: 28px;
-  color: #fff;
-}
-.s1 {
-  top: 11%;
-  right: 14%;
-}
-.s2 {
-  bottom: 24%;
-  left: 10%;
-  color: #d8ff3e;
-}
-.s3 {
-  bottom: 10%;
-  right: 40%;
-  font-size: 17px;
+  pointer-events: none;
 }
 .stage-label,
 .stage-index {
   position: absolute;
-  z-index: 3;
-  font: 500 9px "DM Mono";
+  z-index: 1;
+  color: #fff;
+  text-shadow: 0 1px 5px #161513;
+  font: 500 10px "DM Mono";
   letter-spacing: 0.06em;
   line-height: 1.5;
 }
@@ -350,7 +281,7 @@ h2 em {
   height: 440px;
   position: relative;
   overflow: hidden;
-  background: #5e4fd5;
+  background: #ddd4cb;
   transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .work-card:hover .card-art,
@@ -360,64 +291,6 @@ h2 em {
 .work-card:nth-child(2) .card-art,
 .work-card:nth-child(3) .card-art {
   height: 320px;
-}
-.orange .card-art {
-  background: #ff7147;
-}
-.blue .card-art {
-  background: #77c3e5;
-}
-.art-ring {
-  position: absolute;
-  width: 70%;
-  aspect-ratio: 1;
-  border: 27px solid #d9fa54;
-  border-radius: 50%;
-  top: 16%;
-  left: 15%;
-  box-shadow: 0 0 30px #c8ed5e;
-}
-.violet .art-shape {
-  position: absolute;
-  width: 49%;
-  height: 68%;
-  border-radius: 50% 50% 48% 10%;
-  background: #ff8660;
-  right: 5%;
-  bottom: -8%;
-  transform: rotate(27deg);
-}
-.orange .art-ring {
-  border-color: #221c71;
-  width: 110%;
-  top: 20%;
-  left: -5%;
-}
-.orange .art-shape {
-  position: absolute;
-  width: 68%;
-  height: 36%;
-  border-radius: 50%;
-  background: #fff1cf;
-  top: 35%;
-  left: 15%;
-  transform: rotate(-28deg);
-}
-.blue .art-ring {
-  border-color: #ffdb3e;
-  width: 60%;
-  top: 24%;
-  left: 20%;
-}
-.blue .art-shape {
-  position: absolute;
-  width: 50%;
-  height: 90%;
-  background: #203b9a;
-  border-radius: 50%;
-  right: 5%;
-  top: -18%;
-  transform: rotate(37deg);
 }
 .card-meta {
   display: block;
@@ -527,13 +400,10 @@ footer p {
     font-size: clamp(45px, 11vw, 65px);
     margin: 38px 0 28px;
   }
-  .orbital-stage {
+  .hero-art {
     margin-top: 56px;
-    min-height: 400px;
-  }
-  .orb-main {
-    width: 280px;
-    height: 280px;
+    min-height: 0;
+    aspect-ratio: 4 / 5;
   }
   .statement,
   .work-section,
@@ -551,6 +421,10 @@ footer p {
   .work-grid {
     grid-template-columns: 1fr;
   }
+  .work-card .card-art {
+    height: auto;
+    aspect-ratio: 1;
+  }
   .work-card:nth-child(2),
   .work-card:nth-child(3) {
     display: grid;
@@ -559,7 +433,7 @@ footer p {
   }
   .work-card:nth-child(2) .card-art,
   .work-card:nth-child(3) .card-art {
-    height: 190px;
+    height: auto;
   }
   .section-head {
     margin-bottom: 35px;
